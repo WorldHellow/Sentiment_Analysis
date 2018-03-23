@@ -29,7 +29,7 @@ def look_for_features(document):
     words = set(document)
     features = {}
     for x in word_features:
-        features[x] = {x in words}
+        features[x] = x in words
     return features
 
 #find features of negative dataset
@@ -41,13 +41,13 @@ featuresets = [(look_for_features(rev), category) for (rev, category) in documen
 training_set = featuresets[:1400]
 testing_set = featuresets[1400:]
 
-#classifier = nltk.NaiveBayesClassifier.train(training_set)
+classifier = nltk.NaiveBayesClassifier.train(training_set)
 
 ##classifier_f = open("naivebayes.picke","rb")
 ##classifier = pickle.load(classifier_f)
 ##classifier_f.close()
 
-#print ("Accuracy: ", (nltk.classify.accuracy(classifier,testing_set))*100)
+print ("Accuracy: ", (nltk.classify.accuracy(classifier,testing_set))*100)
 
 #most common words
 #classifier.show_most_informative_features(10)
@@ -63,13 +63,13 @@ print ("MNB_classifier Accuracy: ", (nltk.classify.accuracy(MNB_classifier,testi
 
 #Bernoulli
 BernoulliNB_classifier = SklearnClassifier(BernoulliNB())
-BernoulliNB.train(training_set)
-print ("BernoulliNB Accuracy: ", (nltk.classify.accuracy(BernoulliNB,testing_set))*100)
+BernoulliNB_classifier.train(training_set)
+print ("BernoulliNB Accuracy: ", (nltk.classify.accuracy(BernoulliNB_classifier,testing_set))*100)
 
 #Gaussian
-GaussianNB_classifier = SklearnClassifier(GaussianNB())
-GaussianNB_classifier.train(training_set)
-print ("GaussianNB Accuracy: ", (nltk.classify.accuracy(GaussianNB_classifier,testing_set))*100)
+#GaussianNB_classifier = SklearnClassifier(GaussianNB())
+#GaussianNB_classifier.train(training_set)
+#print ("GaussianNB Accuracy: ", (nltk.classify.accuracy(GaussianNB_classifier,testing_set))*100)
 
 #Logistic Regression, SGD
 LogisticRegression_classifier = SklearnClassifier(LogisticRegression())
