@@ -27,7 +27,7 @@ def look_for_features(document):
     w = set(document)
     f = {}
     for x in features:
-        f[x] = {x in w}
+        f[x] = x in w
     return f
 
 #find features of negative dataset
